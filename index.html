@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiteOS Emulator</title>
+    <script src="https://unpkg.com/emulatorjs"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #emulator-container {
+            width: 640px;
+            height: 480px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <h1>LiteOS Emulator</h1>
+    <div id="emulator-container"></div>
+
+    <script>
+        // Initialize the emulator with the necessary files
+        const emulator = new Emulator({
+            container: document.getElementById('emulator-container'),
+            files: {
+                "Makefile": "https://github.com/arthur-lenoble/LiteOS/raw/main/Makefile",
+                "kernel.c": "https://github.com/arthur-lenoble/LiteOS/raw/main/kernel.c",
+                "boot.s": "https://github.com/arthur-lenoble/LiteOS/raw/main/boot.s",
+                "linker.ld": "https://github.com/arthur-lenoble/LiteOS/raw/main/linker.ld",
+                "main.c": "https://github.com/arthur-lenoble/LiteOS/raw/main/main.c"
+            }
+        });
+
+        // Load and run the OS
+        emulator.load()
+            .then(() => {
+                console.log('Emulator loaded successfully');
+                emulator.run();
+            })
+            .catch(err => {
+                console.error('Failed to load emulator:', err);
+            });
+    </script>
+</body>
+</html>
